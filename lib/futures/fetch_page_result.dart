@@ -31,7 +31,7 @@ class FetchPageResult extends StatelessWidget {
                 return Text('Error : ${snapshot.error}');
               }
             } else {
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             }
           },
         ),

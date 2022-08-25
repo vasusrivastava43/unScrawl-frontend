@@ -5,8 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 
 Future<dynamic> uploadImage(File imageFile) async {
-  final uri = Uri.parse('https://unscrawl.herokuapp.com/upload');
-  // final uri = Uri.parse('http://10.0.2.2:5000/upload');
+  // final uri = Uri.parse('https://unscrawl.herokuapp.com/upload');
+  final uri = Uri.parse('http://10.0.2.2:5000/upload');
 
   final request = http.MultipartRequest('POST', uri);
   final headers = {
