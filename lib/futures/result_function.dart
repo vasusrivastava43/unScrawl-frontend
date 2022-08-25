@@ -5,8 +5,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 
 Future<dynamic> uploadImage(File imageFile) async {
-  final uri = Uri.parse('https://penmenship.herokuapp.com/upload');
-  //final uri = Uri.parse('http://20.204.239.158/upload');
+  final uri = Uri.parse('https://unscrawl.herokuapp.com/upload');
+  // final uri = Uri.parse('http://10.0.2.2:5000/upload');
 
   final request = http.MultipartRequest('POST', uri);
   final headers = {
@@ -63,29 +63,31 @@ Future<Map<String, dynamic>> storageAccess(String folderPath) async {
 Future<Map<String, dynamic>> resultWithImageUpload(
     File imageFile, String chapterId) async {
   final response = await uploadImage(imageFile);
-  final result = await storageAccess(response['folderID']);
-  final docRef = await FirebaseFirestore.instance.collection('page').add({
-    'datetime': DateTime.now().toIso8601String(),
-    'folderID': response['folderID'],
-    'score': response['score'],
-    'totalWords': response['totalWords'],
-    'incorrectWords': response['incorrectWords'],
-    'alhabetList': response['alphabets']
-  });
-  await FirebaseFirestore.instance
-      .collection('page')
-      .doc(docRef.id)
-      .update({'id': docRef.id});
-  await FirebaseFirestore.instance.collection('chapter').doc(chapterId).update({
-    'pages': FieldValue.arrayUnion([docRef.id])
-  });
+  return response;
 
-  result.putIfAbsent('score', () => response['score']);
-  result.putIfAbsent('totalWords', () => response['totalWords']);
-  result.putIfAbsent('incorrectWords', () => response['incorrectWords']);
-  result.putIfAbsent('alphabetList', () => response['alphabets']);
-  //result.putIfAbsent('topFourAlphabets', () => response['topFourAlphabets']);
-  return result;
+  // final result = await storageAccess(response['folderID']);
+  // final docRef = await FirebaseFirestore.instance.collection('page').add({
+  //   'datetime': DateTime.now().toIso8601String(),
+  //   'folderID': response['folderID'],
+  //   'score': response['score'],
+  //   'totalWords': response['totalWords'],
+  //   'incorrectWords': response['incorrectWords'],
+  //   'alhabetList': response['alphabets']
+  // });
+  // await FirebaseFirestore.instance
+  //     .collection('page')
+  //     .doc(docRef.id)
+  //     .update({'id': docRef.id});
+  // await FirebaseFirestore.instance.collection('chapter').doc(chapterId).update({
+  //   'pages': FieldValue.arrayUnion([docRef.id])
+  // });
+
+  // result.putIfAbsent('score', () => response['score']);
+  // result.putIfAbsent('totalWords', () => response['totalWords']);
+  // result.putIfAbsent('incorrectWords', () => response['incorrectWords']);
+  // result.putIfAbsent('alphabetList', () => response['alphabets']);
+  // //result.putIfAbsent('topFourAlphabets', () => response['topFourAlphabets']);
+  // return result;
 }
 
 Future<Map<String, dynamic>> resultWithoutUpload(String pageid) async {

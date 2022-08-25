@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../provider/managers.dart';
 import '../student_view/student_view.dart';
+import '../widgets/widgets.dart';
 
 class FetchStudent extends StatelessWidget {
   const FetchStudent({Key? key, required this.studentID}) : super(key: key);

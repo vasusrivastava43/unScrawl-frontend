@@ -19,7 +19,6 @@ class PictureManager extends ChangeNotifier {
   Future<File> cropImage(String imagePath) async {
     CroppedFile? croppedFile1 = await ImageCropper().cropImage(
         sourcePath: imagePath,
-        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
         compressQuality: 100,
         compressFormat: ImageCompressFormat.png,
         uiSettings: [

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 import '../result/result_screen.dart';
+import '../widgets/widgets.dart';
 import 'result_function.dart';
 
 class FetchPageResult extends StatelessWidget {
@@ -20,18 +21,20 @@ class FetchPageResult extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: FutureBuilder(
-            future: resultWithImageUpload(image, chapterId),
-            builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData) {
-                  return ResultScreen(result: snapshot.data!);
-                } else {
-                  return Text('Error : ${snapshot.error}');
-                }
+          future: resultWithImageUpload(image, chapterId),
+          builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                // return ResultScreen(result: snapshot.data!);
+                return Center(child: Text(snapshot.data.toString()));
               } else {
-                return Center(child: CircularProgressIndicator());
+                return Text('Error : ${snapshot.error}');
               }
-            }),
+            } else {
+              return CircularProgressIndicator();
+            }
+          },
+        ),
       ),
     );
   }

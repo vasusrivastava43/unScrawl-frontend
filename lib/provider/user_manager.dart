@@ -24,7 +24,6 @@ class UserManager extends ChangeNotifier {
   }
 
   Future<void> checkStatus(context) async {
-    await Future.delayed(Duration(milliseconds: 3000));
     checkLogin();
     await getUserType();
 

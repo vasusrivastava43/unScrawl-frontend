@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../result/result_screen.dart';
+import '../widgets/widgets.dart';
 import 'result_function.dart';
 
 class FetchPageResultFirebase extends StatelessWidget {

@@ -24,6 +24,7 @@ dependencies:
     image_cropper: ^3.0.0
     http: ^0.13.5
     smooth_page_indicator: ^1.0.0+2
+    rive: ^0.9.1
 
 dev_dependencies:
     flutter_test:
@@ -37,3 +38,4 @@ flutter:
     assets:
         - assets/images/
         - assets/images/alphabets/
+        - assets/rive/
