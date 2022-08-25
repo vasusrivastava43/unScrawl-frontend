@@ -1,6 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+import '../provider/managers.dart';
+import 'screens/screens.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -9,9 +16,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'unScrawl',
-      home: Scaffold(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserManager()),
+        ChangeNotifierProvider(create: (_) => LoginManager()),
+        ChangeNotifierProvider(create: (_) => PictureManager()),
+        ChangeNotifierProvider(create: (_) => StudentManager()),
+        ChangeNotifierProvider(create: (_) => StudentNavigationManager()),
+      ],
+      child: MaterialApp(
+        title: 'unScrawl',
+        home: SplashScreen(),
+      ),
     );
   }
 }
