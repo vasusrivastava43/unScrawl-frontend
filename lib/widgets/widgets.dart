@@ -8,3 +8,4 @@ export 'chart.dart';
 export 'chart_bar.dart';
 export 'splash_animation.dart';
 export 'api_animation.dart';
+export 'student_tile.dart';

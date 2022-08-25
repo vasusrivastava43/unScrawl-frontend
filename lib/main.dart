@@ -23,6 +23,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PictureManager()),
         ChangeNotifierProvider(create: (_) => StudentManager()),
         ChangeNotifierProvider(create: (_) => StudentNavigationManager()),
+        ChangeNotifierProvider(create: (_) => TeacherManager()),
+        ChangeNotifierProvider(create: (_) => TeacherNavigationManager()),
       ],
       child: MaterialApp(
         title: 'unScrawl',

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../futures/fetch_student.dart';
+import '../futures/fetch_teacher.dart';
 import '../screens/screens.dart';
 
 class UserManager extends ChangeNotifier {
@@ -32,13 +33,8 @@ class UserManager extends ChangeNotifier {
             ? Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                    body: Center(
-                      child: TextButton(
-                        child: Text('FUTURE WORK - App Restart'),
-                        onPressed: () => FirebaseAuth.instance.signOut(),
-                      ),
-                    ),
+                  builder: (context) => FetchTeacher(
+                    uid: FirebaseAuth.instance.currentUser!.uid,
                   ),
                 ),
               )

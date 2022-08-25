@@ -35,9 +35,7 @@ class _OverHomeScreenState extends State<OverHomeScreen> {
             'Let\'s begin',
             style: title,
           ),
-          // SizedBox(height: 60),
           SmallGIF(alphabet: String.fromCharCode(Random().nextInt(26) + 97)),
-          // SizedBox(height: 10),
           SmallGIF(alphabet: String.fromCharCode(Random().nextInt(26) + 97)),
         ],
       );

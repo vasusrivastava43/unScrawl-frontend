@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../futures/fetch_student.dart';
+import '../futures/fetch_teacher.dart';
 
 class LoginManager extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -43,14 +44,7 @@ class LoginManager extends ChangeNotifier {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => Scaffold(
-                  body: Center(
-                    child: TextButton(
-                      child: Text('FUTURE WORK - Login'),
-                      onPressed: () => FirebaseAuth.instance.signOut(),
-                    ),
-                  ),
-                ),
+                builder: (context) => FetchTeacher(uid: user.user!.uid),
               ),
             );
           }
