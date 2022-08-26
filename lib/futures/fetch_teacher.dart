@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/managers.dart';
-import '../student_view/student_view.dart';
 import '../teacher_view/teacher_view.dart';
 import '../widgets/widgets.dart';
 
 class FetchTeacher extends StatelessWidget {
-  const FetchTeacher({Key? key, required this.uid}) : super(key: key);
+  FetchTeacher({Key? key, required this.uid}) : super(key: key);
 
   final String uid;
-
   @override
   Widget build(BuildContext context) {
     final userTeacherProvider =
@@ -27,7 +24,7 @@ class FetchTeacher extends StatelessWidget {
                 return Text('${snapshot.data} | ${snapshot.error}');
               }
             } else {
-              return CircularProgressIndicator();
+              return SplashAnimation();
             }
           },
         ),

@@ -7,6 +7,7 @@ class TeacherManager extends ChangeNotifier {
   late Teacher _teacher;
 
   Teacher get teacher => _teacher;
+  List<String> sortedStudent=[];
 
   Future<bool> getData(uid) async {
     final teacherData = await FirebaseFirestore.instance
@@ -41,6 +42,25 @@ class TeacherManager extends ChangeNotifier {
     Teacher teacherObject = Teacher.fromJSON(teacherData);
     _teacher = teacherObject.copyWith(userStudents: students);
 
+    //StudentRanking();
+
     return true;
+  }
+
+  void StudentRanking() {
+    int i = -1;
+    for (var student in _teacher.userStudents) {
+      i += 1;
+      Student userStudent = student;
+      num max = student.score;
+      for (int j = i + 1; j < _teacher.userStudents.length; j++) {
+        if (max < _teacher.userStudents[j].score) {
+          userStudent = _teacher.userStudents[j];
+          max = _teacher.userStudents[j].score;
+        }
+      }
+      sortedStudent.add(userStudent.name);
+      _teacher.userStudents.remove(userStudent);
+    }
   }
 }

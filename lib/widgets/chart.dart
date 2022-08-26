@@ -35,7 +35,7 @@ class Chart extends StatelessWidget {
                 (index) => ChartBar(
                   index: index + 1,
                   height: (chapters[index].score * 200) / 20,
-                  score: chapters[index].score,
+                  score: chapters[index].score.round(),
                 ),
               )
             ],

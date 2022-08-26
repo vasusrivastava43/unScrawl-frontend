@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'unScrawl',
+        debugShowCheckedModeBanner: false,
         home: SplashScreen(),
       ),
     );

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rive/rive.dart';
 
 import '../provider/managers.dart';
-import '../widgets/widgets.dart';
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -21,8 +20,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffFF9F9F),
       body: Center(
-        child: CircularProgressIndicator(),
+        child: RiveAnimation.asset('assets/rive/apple.riv'),
       ),
     );
   }

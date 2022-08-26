@@ -28,7 +28,7 @@ class RecordScreen extends StatelessWidget {
                             text: userStudent.name[0],
                           )),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 20),
+                        padding: const EdgeInsets.only(left: 9.0, top: 20),
                         child: Text(
                           userStudent.name,
                           softWrap: true,
@@ -57,13 +57,15 @@ class RecordScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 10.0),
                           child: ChapterListTile(
                             index: index,
-                            score: userStudent.chapter[index].score,
+                            score: userStudent.chapter[index].score.round(),
                           ),
                         );
                       },
                     ),
                   ),
                 ),
+                SizedBox(height: 40,),
+                Chart(chapters: userStudent.chapter),
               ],
             ),
           ),

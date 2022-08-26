@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../model/models.dart';
+import '../provider/managers.dart';
 import '../theme.dart';
 import '../widgets/widgets.dart';
 
@@ -36,8 +38,8 @@ class ChapterRankingScreen extends StatelessWidget {
                     height: physicalHeight * .29,
                     width: mainContainerWidth,
                     decoration: mainDecoration,
-                    child: ListView.builder(
-                      itemCount: teacher.students.length,
+                    child:Consumer<TeacherManager>(builder: (context, value, child) =>  ListView.builder(
+                      itemCount: value.sortedStudent.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 10.0),
@@ -63,20 +65,14 @@ class ChapterRankingScreen extends StatelessWidget {
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(left: 10.0),
-                                      child: Text(
-                                        teacher.userStudents[index].name,
-                                        softWrap: true,
-                                        style: title,
+                                      child:
+                                            Text(
+                                          value.sortedStudent[index],
+                                          softWrap: true,
+                                          style: title,
+
                                       ),
                                     ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 10.0),
-                                      child: Text(
-                                        '45',
-                                        style: TextStyle(fontSize: 25),
-                                      ),
-                                    )
                                   ],
                                 ),
                               ),
@@ -86,7 +82,7 @@ class ChapterRankingScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                ),
+                ),)
               ],
             ),
           ),

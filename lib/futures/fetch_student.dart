@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/managers.dart';
 import '../student_view/student_view.dart';
 import '../widgets/widgets.dart';
 
 class FetchStudent extends StatelessWidget {
-  const FetchStudent({Key? key, required this.studentID}) : super(key: key);
+   FetchStudent({Key? key, required this.studentID}) : super(key: key);
 
   final String studentID;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +23,7 @@ class FetchStudent extends StatelessWidget {
                   return Text('${snapshot.data} | ${snapshot.error}');
                 }
               } else {
-                return CircularProgressIndicator();
+                return SplashAnimation();
               }
             },
           ),

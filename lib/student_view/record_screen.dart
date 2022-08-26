@@ -61,7 +61,7 @@ class RecordScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 10.0),
                           child: ChapterListTile(
                             index: index,
-                            score: manager.studentObject.chapter[index].score,
+                            score: manager.studentObject.chapter[index].score.round(),
                           ),
                         );
                       },

@@ -39,3 +39,15 @@ flutter:
         - assets/images/
         - assets/images/alphabets/
         - assets/rive/
+    fonts:
+        - family: RobotoCon
+          fonts:
+            - asset: assets/fonts/RobotoCondensed-Regular.ttf
+#            - asset: assets/fonts/RobotoCondensed-Bold.ttf
+#              width: 700
+        - family: Dyna
+          fonts:
+              - asset: assets/fonts/DynaPuff-Regular.ttf
+        - family: jimmy
+          fonts:
+              - asset: assets/fonts/JimmyScript-Rg.otf

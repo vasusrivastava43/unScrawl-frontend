@@ -4,7 +4,7 @@ import '../theme.dart';
 import '../widgets/widgets.dart';
 
 class ResultScreenTwo extends StatelessWidget {
-  const ResultScreenTwo({
+  ResultScreenTwo({
     Key? key,
     required this.alphabetsUrl,
     required this.spellingUrl,
@@ -13,7 +13,7 @@ class ResultScreenTwo extends StatelessWidget {
 
   final List<String> alphabetsUrl;
   final List<String> spellingUrl;
-  final List<String> alphabetsList;
+  var alphabetsList;
 
   List<Widget> getText(int index) {
     List<Widget> list1 = [];
@@ -69,31 +69,50 @@ class ResultScreenTwo extends StatelessWidget {
                           height: physicalHeight * .24,
                           width: mainContainerWidth - 10,
                           child: ListView.builder(
-                            itemCount: alphabetsUrl.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: ListView(
+                              itemCount: alphabetsUrl.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
-                                  children: [
-                                    Image.network(
-                                      alphabetsUrl[index],
-                                      scale: 2,
-                                    ),
-                                    Image.asset(
-                                      'asset/arrow.png',
-                                      height: 40,
-                                      width: 60,
-                                    ),
-                                    Center(
-                                      child: Row(children: getText(index)),
-                                    )
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                                decoration: BoxDecoration(
+                                                    border: Border(
+                                                  right: BorderSide(
+                                                      color: Colors.black),
+                                                  top: BorderSide(
+                                                      color: Colors.black),
+                                                  bottom: BorderSide(
+                                                      color: Colors.black),
+                                                  left: BorderSide(
+                                                      color: Colors.black),
+                                                )),
+                                                child: Image.network(
+                                                  alphabetsUrl[index],
+                                                  scale: 2,
+                                                )),
+                                            Image.asset(
+                                              'assets/images/arrow.png',
+                                              height: 40,
+                                              width: 60,
+                                            ),
+                                            Center(
+                                              child:
+                                                  Row(children: getText(index)),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
                         )
                       ],
                     ),

@@ -20,7 +20,7 @@ class StudentList extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10.0, top: 14, right: 15),
+                padding: const EdgeInsets.only(left: 10.0, top: 14, right: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -29,7 +29,7 @@ class StudentList extends StatelessWidget {
                       style: headingStyle,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 20.0),
+                      padding: const EdgeInsets.only(right: 12.0),
                       child: PandaImage(),
                     ),
                   ],

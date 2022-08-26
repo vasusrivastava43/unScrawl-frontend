@@ -58,7 +58,7 @@ class ResultScreenThree extends StatelessWidget {
                           height: 30,
                         ),
                         Image.asset(
-                          'asset/resultPanda.png',
+                          'assets/images/resultPanda.png',
                           height: physicalHeight * .1,
                           width: physicalWidth * .2,
                         )
@@ -66,6 +66,20 @@ class ResultScreenThree extends StatelessWidget {
                     ),
                   ),
                 ),
+                Spacer(),
+                ElevatedButton(
+                  onPressed: () {Navigator.pop(context);
+                  Navigator.pop(context);},
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Color(0xfff7b6a7)),
+                  ),
+                  child: Text(
+                    'Done',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+                SizedBox(height: 40,)
               ],
             ),
           ),

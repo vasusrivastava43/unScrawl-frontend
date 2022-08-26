@@ -9,9 +9,10 @@ class APIAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff25536E),
       body: RiveAnimation.asset(
-        'assets/rive/panda.riv',
-        controllers: [_controller],
+        'assets/rive/panda1.riv',
+        // controllers: [_controller],
       ),
     );
   }

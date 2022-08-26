@@ -7,7 +7,6 @@ import 'package:unscrawl/futures/fetch_page_result.dart';
 
 class PictureManager extends ChangeNotifier {
   late File _image;
-
   File get image => _image;
 
   Future<File> getImage(ImageSource imageSource) async {

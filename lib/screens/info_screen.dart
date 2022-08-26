@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:unscrawl/model/models.dart';
 import 'package:unscrawl/theme.dart';
 
 import '../provider/managers.dart';
@@ -73,6 +74,9 @@ class InfoScreen extends StatelessWidget {
                           );
                           Provider.of<StudentNavigationManager>(context,
                                   listen: false)
+                              .currentScreen(0);
+                          Provider.of<TeacherNavigationManager>(context,
+                              listen: false)
                               .currentScreen(0);
                         },
                         style: ButtonStyle(

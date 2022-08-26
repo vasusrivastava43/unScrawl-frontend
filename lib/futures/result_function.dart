@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 
 Future<dynamic> uploadImage(File imageFile) async {
-  // final uri = Uri.parse('https://unscrawl.herokuapp.com/upload');
-  final uri = Uri.parse('http://10.0.2.2:5000/upload');
+  final uri = Uri.parse('https://unscrawl.herokuapp.com/upload');
+  // final uri = Uri.parse('http://10.0.2.2:5000/upload');
+  // final uri = Uri.parse('http://20.219.239.225/upload');
 
   final request = http.MultipartRequest('POST', uri);
   final headers = {
@@ -53,6 +55,8 @@ Future<Map<String, dynamic>> storageAccess(String folderPath) async {
   final List<String> spellingList = [];
   for (var image in spellingImages.items) {
     String url = await image.getDownloadURL();
+
+
     spellingList.add(url);
   }
   images['spelling'] = spellingList;
@@ -63,31 +67,84 @@ Future<Map<String, dynamic>> storageAccess(String folderPath) async {
 Future<Map<String, dynamic>> resultWithImageUpload(
     File imageFile, String chapterId) async {
   final response = await uploadImage(imageFile);
-  return response;
 
-  // final result = await storageAccess(response['folderID']);
-  // final docRef = await FirebaseFirestore.instance.collection('page').add({
-  //   'datetime': DateTime.now().toIso8601String(),
-  //   'folderID': response['folderID'],
-  //   'score': response['score'],
-  //   'totalWords': response['totalWords'],
-  //   'incorrectWords': response['incorrectWords'],
-  //   'alhabetList': response['alphabets']
-  // });
-  // await FirebaseFirestore.instance
-  //     .collection('page')
-  //     .doc(docRef.id)
-  //     .update({'id': docRef.id});
-  // await FirebaseFirestore.instance.collection('chapter').doc(chapterId).update({
-  //   'pages': FieldValue.arrayUnion([docRef.id])
-  // });
+  final result = await storageAccess(response['folderID']);
+  final docRef = await FirebaseFirestore.instance.collection('page').add({
+    'datetime': DateTime.now().toIso8601String(),
+    'folderID': response['folderID'],
+    'score': response['score'],
+    'totalWords': response['totalWords'],
+    'incorrectWords': response['incorrectWords'],
+    'alhabetList': response['alphabets']
+  });
+  await FirebaseFirestore.instance
+      .collection('page')
+      .doc(docRef.id)
+      .update({'id': docRef.id});
+  await FirebaseFirestore.instance.collection('chapter').doc(chapterId).update({
+    'pages': FieldValue.arrayUnion([docRef.id])
+  });
 
-  // result.putIfAbsent('score', () => response['score']);
-  // result.putIfAbsent('totalWords', () => response['totalWords']);
-  // result.putIfAbsent('incorrectWords', () => response['incorrectWords']);
-  // result.putIfAbsent('alphabetList', () => response['alphabets']);
-  // //result.putIfAbsent('topFourAlphabets', () => response['topFourAlphabets']);
-  // return result;
+  final doc = await FirebaseFirestore.instance
+      .collection('chapter')
+      .doc(chapterId)
+      .get();
+  final List<num> pageScore = [];
+  for (var pageID in doc.data()!['pages']) {
+    final doc = await FirebaseFirestore.instance
+        .collection('page')
+        .doc(pageID)
+        .get();
+    pageScore.add(doc.data()!['score']);
+  }
+  final scoreTotal = pageScore.fold<num>(
+      0.0,
+          (previousValue, element) =>
+      previousValue + element);
+
+  FirebaseFirestore.instance
+      .collection('chapter')
+      .doc(chapterId)
+      .update(
+      {'score': scoreTotal / pageScore.length});
+
+  final studentDoc = await FirebaseFirestore.instance
+      .collection('student')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .get();
+  final List<num> chapterScore = [];
+  for (var chapterID in studentDoc.data()!['chapters']) {
+    final doc = await FirebaseFirestore.instance
+        .collection('chapter')
+        .doc(chapterID)
+        .get();
+    chapterScore.add(doc.data()!['score']);
+  }
+  final studentScoreTotal = chapterScore.fold<num>(
+      0.0,
+          (previousValue, element) =>
+      previousValue + element);
+
+  FirebaseFirestore.instance
+      .collection('student')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .update({
+    'score': studentScoreTotal / chapterScore.length
+  });
+
+  await FirebaseFirestore.instance
+      .collection('student')
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .update(
+    {'topFourAlphabets': response['topFourAlphabets']},
+  );
+
+  result.putIfAbsent('score', () => response['score']);
+  result.putIfAbsent('totalWords', () => response['totalWords']);
+  result.putIfAbsent('incorrectWords', () => response['incorrectWords']);
+  result.putIfAbsent('alphabetList', () => response['alphabets']);
+  result.putIfAbsent('topFourAlphabets', () => response['topFourAlphabets']);
+  return result;
 }
 
 Future<Map<String, dynamic>> resultWithoutUpload(String pageid) async {
@@ -102,6 +159,5 @@ Future<Map<String, dynamic>> resultWithoutUpload(String pageid) async {
   result.putIfAbsent('totalWords', () => pageData['totalWords']);
   result.putIfAbsent('incorrectWords', () => pageData['incorrectWords']);
   result.putIfAbsent('alphabetList', () => pageData['alhabetList']);
-  //result.putIfAbsent('topFourAlphabets', () => pageData['topFourAlphabets']);
   return result;
 }

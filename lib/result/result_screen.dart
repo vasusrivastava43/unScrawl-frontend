@@ -26,6 +26,7 @@ class ResultScreen extends StatelessWidget {
       )
     ];
     PageController controller = PageController();
+    print(result);
     return Stack(
       alignment: AlignmentDirectional.bottomCenter,
       children: [

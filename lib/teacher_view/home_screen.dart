@@ -67,25 +67,7 @@ class TeacherHomeScreen extends StatelessWidget {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TopFiveStudent(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TopFiveStudent(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TopFiveStudent(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TopFiveStudent(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      TopFiveStudent(),
-                    ],
+                    children: List.generate(manager.sortedStudent.length, (index) => TopFiveStudent(topStudent: manager.sortedStudent[index])),
                   ),
                 ),
               )
@@ -99,9 +81,9 @@ class TeacherHomeScreen extends StatelessWidget {
 
 class TopFiveStudent extends StatelessWidget {
   const TopFiveStudent({
-    Key? key,
+    Key? key,required this.topStudent
   }) : super(key: key);
-
+final String topStudent;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -123,27 +105,15 @@ class TopFiveStudent extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10),
                   child: ProfileAvatar(
-                    text: 'V',
+                    text: topStudent[0],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Vasu',
-                        softWrap: true,
-                        style: title,
-                      ),
-                      Text(
-                        '10',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                        ),
-                      )
-                    ],
+                  child: Text(
+                    topStudent,
+                    softWrap: true,
+                    style: title,
                   ),
                 )
               ],

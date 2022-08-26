@@ -26,12 +26,12 @@ class FetchPageResult extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
                 // return ResultScreen(result: snapshot.data!);
-                return Center(child: Text(snapshot.data.toString()));
+                return ResultScreen(result: snapshot.data!);
               } else {
                 return Text('Error : ${snapshot.error}');
               }
             } else {
-              return Center(child: CircularProgressIndicator());
+              return Center(child: APIAnimation());
             }
           },
         ),
