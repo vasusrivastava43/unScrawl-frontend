@@ -38,7 +38,7 @@ class StudentList extends StatelessWidget {
               Center(
                 child: Container(
                   padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-                  height: mainContainerHeight,
+                  height: mainContainerHeight - 20,
                   width: mainContainerWidth,
                   decoration: mainDecoration,
                   child: Consumer<TeacherManager>(

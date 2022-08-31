@@ -58,7 +58,7 @@ class TeacherHomeScreen extends StatelessWidget {
                 height: 20,
               ),
               Container(
-                height: physicalHeight * .25,
+                height: physicalHeight * .2,
                 width: mainContainerWidth,
                 decoration: mainDecoration,
                 child: Padding(
@@ -67,7 +67,10 @@ class TeacherHomeScreen extends StatelessWidget {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: List.generate(manager.sortedStudent.length, (index) => TopFiveStudent(topStudent: manager.sortedStudent[index])),
+                    children: List.generate(
+                        manager.sortedStudent.length,
+                        (index) => TopFiveStudent(
+                            topStudent: manager.sortedStudent[index])),
                   ),
                 ),
               )
@@ -80,10 +83,8 @@ class TeacherHomeScreen extends StatelessWidget {
 }
 
 class TopFiveStudent extends StatelessWidget {
-  const TopFiveStudent({
-    Key? key,required this.topStudent
-  }) : super(key: key);
-final String topStudent;
+  const TopFiveStudent({Key? key, required this.topStudent}) : super(key: key);
+  final String topStudent;
   @override
   Widget build(BuildContext context) {
     return Row(

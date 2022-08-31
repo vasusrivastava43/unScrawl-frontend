@@ -54,11 +54,11 @@ class StudentHomeScreen extends StatelessWidget {
                 height: 20,
               ),
               Container(
-                height: physicalHeight * .25,
+                height: physicalHeight * .2,
                 width: mainContainerWidth,
                 decoration: mainDecoration,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 100,left: 17),
+                  padding: EdgeInsets.only(top: 20, left: 17),
                   child: OverHomeScreen(),
                 ),
               )

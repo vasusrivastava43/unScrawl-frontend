@@ -33,7 +33,7 @@ class ChapterListScreen extends StatelessWidget {
                 Center(
                   child: Container(
                     padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-                    height: mainContainerHeight - 10,
+                    height: mainContainerHeight - 30,
                     width: mainContainerWidth,
                     decoration: mainDecoration,
                     child: ListView.builder(

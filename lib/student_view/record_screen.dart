@@ -31,8 +31,8 @@ class RecordScreen extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            left: 10.0, top: 20, bottom: 0),
+                        padding:
+                            const EdgeInsets.only(left: 0, top: 20, bottom: 0),
                         child: Text(
                           manager.studentObject.name,
                           softWrap: true,
@@ -50,7 +50,7 @@ class RecordScreen extends StatelessWidget {
                 Center(
                   child: Container(
                     padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-                    height: physicalHeight * .13,
+                    height: physicalHeight * .115,
                     width: mainContainerWidth,
                     decoration: mainDecoration,
                     child: ListView.builder(
@@ -61,7 +61,8 @@ class RecordScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 10.0),
                           child: ChapterListTile(
                             index: index,
-                            score: manager.studentObject.chapter[index].score.round(),
+                            score: manager.studentObject.chapter[index].score
+                                .round(),
                           ),
                         );
                       },

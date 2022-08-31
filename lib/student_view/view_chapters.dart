@@ -22,7 +22,7 @@ class ViewChapters extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0, top: 15),
+                  padding: const EdgeInsets.only(left: 10.0, top: 0),
                   child: Row(
                     children: const [
                       Text('Chapter List', style: headingStyle),
@@ -34,7 +34,7 @@ class ViewChapters extends StatelessWidget {
                 Center(
                   child: Container(
                     padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-                    height: mainContainerHeight,
+                    height: mainContainerHeight - 10,
                     width: mainContainerWidth,
                     decoration: mainDecoration,
                     child: ListView.builder(

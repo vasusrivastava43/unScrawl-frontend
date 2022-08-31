@@ -10,7 +10,7 @@ class PandaImage extends StatelessWidget {
     return Image.asset(
       'assets/images/panda.png',
       height: physicalHeight * .026,
-      width: physicalWidth * .17,
+      width: physicalWidth * .14,
     );
   }
 }

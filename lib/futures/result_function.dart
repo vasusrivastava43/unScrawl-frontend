@@ -6,8 +6,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 
 Future<dynamic> uploadImage(File imageFile) async {
-  final uri = Uri.parse('https://unscrawl.herokuapp.com/upload');
-  // final uri = Uri.parse('http://10.0.2.2:5000/upload');
+  // final uri = Uri.parse('https://unscrawl.herokuapp.com/upload');
+  final uri = Uri.parse('http://10.0.2.2:5000/upload');
   // final uri = Uri.parse('http://20.219.239.225/upload');
 
   final request = http.MultipartRequest('POST', uri);
@@ -56,7 +56,6 @@ Future<Map<String, dynamic>> storageAccess(String folderPath) async {
   for (var image in spellingImages.items) {
     String url = await image.getDownloadURL();
 
-
     spellingList.add(url);
   }
   images['spelling'] = spellingList;
@@ -91,22 +90,17 @@ Future<Map<String, dynamic>> resultWithImageUpload(
       .get();
   final List<num> pageScore = [];
   for (var pageID in doc.data()!['pages']) {
-    final doc = await FirebaseFirestore.instance
-        .collection('page')
-        .doc(pageID)
-        .get();
+    final doc =
+        await FirebaseFirestore.instance.collection('page').doc(pageID).get();
     pageScore.add(doc.data()!['score']);
   }
   final scoreTotal = pageScore.fold<num>(
-      0.0,
-          (previousValue, element) =>
-      previousValue + element);
+      0.0, (previousValue, element) => previousValue + element);
 
   FirebaseFirestore.instance
       .collection('chapter')
       .doc(chapterId)
-      .update(
-      {'score': scoreTotal / pageScore.length});
+      .update({'score': scoreTotal / pageScore.length});
 
   final studentDoc = await FirebaseFirestore.instance
       .collection('student')
@@ -121,16 +115,12 @@ Future<Map<String, dynamic>> resultWithImageUpload(
     chapterScore.add(doc.data()!['score']);
   }
   final studentScoreTotal = chapterScore.fold<num>(
-      0.0,
-          (previousValue, element) =>
-      previousValue + element);
+      0.0, (previousValue, element) => previousValue + element);
 
   FirebaseFirestore.instance
       .collection('student')
       .doc(FirebaseAuth.instance.currentUser!.uid)
-      .update({
-    'score': studentScoreTotal / chapterScore.length
-  });
+      .update({'score': studentScoreTotal / chapterScore.length});
 
   await FirebaseFirestore.instance
       .collection('student')

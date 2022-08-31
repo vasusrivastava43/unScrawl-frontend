@@ -6,30 +6,35 @@ List<Map<String, dynamic>> students = [
     'name': 'Student One',
     'email': 'student1@gmail.com',
     'topFour': [],
+    'score': 0,
     'password': 'student_1'
   },
   {
     'name': 'Student Two',
     'email': 'student2@gmail.com',
     'topFour': [],
+    'score': 0,
     'password': 'student_2'
   },
   {
     'name': 'Student Three',
     'email': 'student3@gmail.com',
     'topFour': [],
+    'score': 0,
     'password': 'student_3'
   },
   {
     'name': 'Student Four',
     'email': 'student4@gmail.com',
     'topFour': [],
+    'score': 0,
     'password': 'student_4'
   },
   {
     'name': 'Student Five',
     'email': 'student5@gmail.com',
     'topFour': [],
+    'score': 0,
     'password': 'student_5'
   }
 ];
@@ -51,6 +56,7 @@ Future<List<String>> createStudentAccount(List<String> chapterIDs) async {
       'id': studentID,
       'name': students[i]['name'],
       'email': students[i]['email'],
+      'score': students[i]['score'],
       'topFourAlphabets': students[i]['topFour'],
       'chapters': chapters,
     });
@@ -67,7 +73,6 @@ Future<List<String>> createChapters() async {
     final chapterDoc = await chapterCollection.add({
       'pages': [],
       'score': 0,
-      'percentage': 0,
     });
 
     chapterCollection.doc(chapterDoc.id).update({'id': chapterDoc.id}).then(
@@ -84,22 +89,31 @@ List<Map<String, dynamic>> teachers = [
     'email': 'teacher1@gmail.com',
     'password': 'teacher_1'
   },
+  {
+    'name': 'Teacher Two',
+    'email': 'teacher2@gmail.com',
+    'password': 'teacher_2'
+  },
 ];
 
 void createTeacherAccount(List<String> studentIDs) async {
-  final userCred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-    email: teachers[0]['email'],
-    password: teachers[0]['password'],
-  );
+  List<int> skip = [0, 3, 3, 5];
 
-  final teacherID = userCred.user!.uid;
+  for (var i = 0; i < teachers.length; i++) {
+    final userCred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: teachers[i]['email'],
+      password: teachers[i]['password'],
+    );
 
-  FirebaseFirestore.instance.collection('teacher').doc(teacherID).set({
-    'id': teacherID,
-    'name': teachers[0]['name'],
-    'email': teachers[0]['email'],
-    'students': studentIDs,
-  });
+    final teacherID = userCred.user!.uid;
+
+    FirebaseFirestore.instance.collection('teacher').doc(teacherID).set({
+      'id': teacherID,
+      'name': teachers[i]['name'],
+      'email': teachers[i]['email'],
+      'students': studentIDs.sublist(skip[i], skip[i + 2]),
+    });
+  }
 }
 
 Future<void> firebaseAutomation() async {

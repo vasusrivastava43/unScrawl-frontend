@@ -30,7 +30,7 @@ class InfoScreen extends StatelessWidget {
                     right: 10,
                     top: 30,
                   ),
-                  height: mainContainerHeight,
+                  height: mainContainerHeight - 10,
                   width: mainContainerWidth,
                   decoration: mainDecoration,
                   child: ListView(
@@ -76,7 +76,7 @@ class InfoScreen extends StatelessWidget {
                                   listen: false)
                               .currentScreen(0);
                           Provider.of<TeacherNavigationManager>(context,
-                              listen: false)
+                                  listen: false)
                               .currentScreen(0);
                         },
                         style: ButtonStyle(
